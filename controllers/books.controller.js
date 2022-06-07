@@ -5,10 +5,16 @@ const model = require("../models/books.models");
 const { books } = model;
 
 function getBooks(req, res) {
+    books.findAll();
+
+    res.send("working");
+}
+
+/*function getBooks(req, res) {
     const result = model.findAll();
     res.json(result);
 }
-
+*/
 function getBook(req, res) {
     const foundBook = books.find((book) => book.id === req.params.id)
 
@@ -29,7 +35,7 @@ function addBook(req, res) {
 function deleteBook(req, res) {
     model.deleteOne(req.params.id);
     res.json(books);
-}
+}  
 
 module.exports = {
     getBooks,

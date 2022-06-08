@@ -1,45 +1,55 @@
-const uuid = require("uuid");
+
 
 const model = require("../models/books.models");
 
-const { books } = model;
 
-function getBooks(req, res) {
-    books.findAll();
 
-    res.send("working");
+
+
+ async function getBooks(req, res) {
+    const result = await model.findAll();
+
+    res.send(result);
 }
 
-/*function getBooks(req, res) {
-    const result = model.findAll();
+
+async function getBook(req, res) {
+    const result = await model.findOne(req.params.id);
+    
+    res.send(result);
+}
+
+async function deleteBook(req, res) {
+    const result = await model.deleteOne(req.params.id);
+
+    res.send(result);
+} 
+
+async function addBook(req, res) {
+    const {name, author} =  req.body;
+
+    const newBook = {
+        name,
+        author
+    }
+  const result = await model.addOne(newBook);
     res.json(result);
 }
-*/
-function getBook(req, res) {
-    const foundBook = books.find((book) => book.id === req.params.id)
 
-    res.json({
-        book: foundBook,
-    })
+async function updateBook(req, res) {
+    const result = await model.updateOne(req.body);
+
+    res.json(result);
 }
 
-function addBook(req, res) {
-    books.push({
-        id: uuid.v4(),
-        name: req.body.name,
-        author: req.body.author
-    })
-    res.json(books);
-}
-
-function deleteBook(req, res) {
-    model.deleteOne(req.params.id);
-    res.json(books);
-}  
+ 
 
 module.exports = {
     getBooks,
-    getBook,
+    getBook ,
+    deleteBook,
     addBook,
-    deleteBook
+    updateBook
+  
+    
 }

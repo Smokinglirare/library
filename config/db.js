@@ -16,7 +16,7 @@ const db = new sqlite3.Database("./db.sqlite", (error) => {
 
     db.run(booksStmt, (error) => {
         if (error) {
-          //  console.error(error.message);
+            console.error(error.message);
         } else {
             const insert = "INSERT INTO books (name, author) VALUES (?, ?)"
             db.run(insert, ["Den hemliga gåvan", "Natasha Lester",]);

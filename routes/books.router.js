@@ -8,6 +8,6 @@ const booksController = require("../controllers/books.controller");
   booksRouter.delete("/:id", booksController.deleteBook)
   booksRouter.post("/books", booksController.addBook)
   booksRouter.put("/:id", booksController.updateBook)
-    
+  booksRouter.patch("/:id", booksController.updateDetailOfBook) 
 
     module.exports = booksRouter;

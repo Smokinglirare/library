@@ -1,25 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+
+const port = 4000;
 const app = express();
 
-const booksRouter = require("./routes/books.router")
+const booksRouter = require("./routes/books.router");
 
 app.use(bodyParser.json());
 
-
-
-
-
-
-
-
-
-
-
-
 app.use(booksRouter);
 
-app.listen(4000, () => {
-    console.log("Servern körs på port 4000");
-})
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

@@ -6,8 +6,10 @@ function findAll() {
     db.all(sql, (error, rows) => {
         if (error) {
             console.error(error.message);
+            reject(error);
         }
         resolve(rows);
+        
         console.log(rows);
     });
 });
@@ -20,6 +22,7 @@ function findOne(id) {
         db.get(sql, id, (error, rows) => {
             if (error) {
                 console.error(error.message);
+                reject(error);
             }
             resolve(rows);
             console.log(rows);
@@ -36,6 +39,7 @@ function deleteOne(id){
         db.get(sql, id, (error) => {
             if (error){
                 console.error(error.message);
+                reject(error);
             }
             resolve();
         })
@@ -57,12 +61,10 @@ function addOne(book){
 }
 
 function updateOne(id, book){
-    const sql = `UPDATE books SET name = 
-    ${book.name}, author = ${book.author} 
-    WHERE id = ?`;
+    const sql = `UPDATE books SET name =  ?, author = ? WHERE id = ?`;
     
     return new Promise((resolve, reject) => {
-        db.run(sql, id, [book.name, book.author], (error) => {
+        db.run(sql, [book.name, book.author, id], (error) => {
             if (error) {
                 console.error(error.message);
                 reject(error);
@@ -74,10 +76,13 @@ function updateOne(id, book){
 }
 
 
+
+
 module.exports = {
     findAll,
     findOne,
     deleteOne,
     addOne,
-    updateOne
+    updateOne,
+    
 }
